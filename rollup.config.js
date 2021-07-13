@@ -3,14 +3,15 @@ import babel from "rollup-plugin-babel";
 import resolve from "@rollup/plugin-node-resolve";
 import alias from "@rollup/plugin-alias";
 import typescript from "rollup-plugin-typescript";
-// import json from "@rollup/plugin-json";
-// import postcss from "rollup-plugin-postcss";
+import json from "@rollup/plugin-json";
+import postcss from "rollup-plugin-postcss";
 // import url from "@rollup/plugin-url";
 import { RollupOptions } from "rollup";
 import copy from "rollup-plugin-copy";
-// import del from "rollup-plugin-delete";
+import del from "rollup-plugin-delete";
 import browsersync from "rollup-plugin-browsersync";
 import html from "@rollup/plugin-html";
+import pkg from "./package.json";
 
 const template = ({
   links,
@@ -38,6 +39,7 @@ const template = ({
 /** @type {RollupOptions} */
 const options = {
   input: "src/index",
+  // external: Object.keys(pkg.dependencies),
   output: {
     sourcemap: true,
     dir: "./dist/",
@@ -45,16 +47,17 @@ const options = {
   },
   preserveEntrySignatures: "strict",
   plugins: [
-    // del({ targets: "./site/local/templates/Leggis/assets/build/*" }),
+    del({ targets: ["./dist/**/*", "!./dist/public/Cesium"] }),
+    resolve({
+      mainFields: ["jsnext:main"],
+    }),
     typescript(),
-    // json(),
-    resolve(),
-    // postcss({
-    // extract: "app.min.css",
-    // sourcemap: true,
-    // config: require("./postcss.config"),
-    // use: ["sass"],
-    // }),
+    json(),
+    postcss({
+      // extract: "app.min.css",
+      sourcemap: true,
+      // config: require("./postcss.config"),
+    }),
     babel({
       exclude: "node_modules/**",
     }),
