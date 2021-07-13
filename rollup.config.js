@@ -9,6 +9,7 @@ import typescript from "rollup-plugin-typescript";
 import { RollupOptions } from "rollup";
 import copy from "rollup-plugin-copy";
 // import del from "rollup-plugin-delete";
+import browsersync from "rollup-plugin-browsersync";
 import html from "@rollup/plugin-html";
 
 const template = ({
@@ -89,6 +90,7 @@ const options = {
       ],
     }),
     // html({ template }),
+    browsersync({ server: "dist" }),
   ],
 };
 export default options;
