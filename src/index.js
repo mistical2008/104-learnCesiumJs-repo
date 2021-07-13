@@ -3,8 +3,8 @@ window.CESIUM_BASE_URL = "/public/Cesium/";
 
 import * as Cesium from "cesium";
 import "../node_modules/cesium/Build/Cesium/Widgets/widgets.css";
-import { config, getMapboxTilesUrl } from "./js/map-config";
-import { flyToRussia } from "./js/tools";
+import { config, cities, getMapboxTilesUrl } from "./js/map-config";
+import { addMarker, addMarkersCollection, flyToRussia } from "./js/tools";
 
 document.addEventListener("DOMContentLoaded", (event) => {
   const toolbarTop = document.querySelector(".cesium-viewer-toolbar");
@@ -22,7 +22,7 @@ const viewer = new Cesium.Viewer("cesiumContainer", {
   ...config.toolbarControls,
   imageryProvider: new Cesium.UrlTemplateImageryProvider({
     url: getMapboxTilesUrl(config.credentials.mapbox),
-    defaultAlpha: 0.7,
+    defaultAlpha: 0.5,
     defaultDayAlpha: 0.5,
     maximumLevel: 3,
   }),
@@ -33,7 +33,7 @@ const blackMarble = layers.addImageryProvider(
   new Cesium.IonImageryProvider({ assetId: 3812 })
 );
 
-scene.skyBox.show = false;
+// scene.skyBox.show = false;
 const canvas = viewer.canvas;
 canvas.setAttribute("tabindex", "0"); // needed to put focus on the canvas
 canvas.onclick = function () {
@@ -49,7 +49,10 @@ scene.screenSpaceCameraController.maximumZoomDistance = 65000000;
 scene.screenSpaceCameraController.enableCollisionDetection = true;
 
 document.addEventListener("DOMContentLoaded", () => {
-  setTimeout(() => flyToRussia(scene), 3000);
+  setTimeout(() => {
+    flyToRussia(scene);
+    addMarkersCollection(viewer, cities, true);
+  }, 3000);
 });
 
 window.Cesium = Cesium;

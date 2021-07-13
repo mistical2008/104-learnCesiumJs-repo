@@ -1,3 +1,5 @@
+import * as Cesium from "cesium";
+import { City } from "./tools";
 const config = {
   renderRoot: "cesiumContainer",
   credentials: {
@@ -24,6 +26,7 @@ const config = {
     timeline: false,
     fullscreenButton: false,
     selectionIndicator: false,
+    projectionPicker: false,
   },
   screenSpaceCameraController: {
     enableRotate: true,
@@ -34,14 +37,46 @@ const config = {
     enableCollisionDetection: true,
   },
   camera: {
-    flyToPosition: [97.563399982653785, 43.6738737958489, 1900000.0],
+    // flyToPosition: [97.563399982653785, 43.6738737958489, 1900000.0],
+    // flyToPosition: [63.41411432563399, 31.50983281565378, 2900000.0],
+    flyToPosition: [65.98071597333362, 38.187637503602346, 3300000.0],
   },
-
 };
+
+const cities: City[] = [
+  {
+    name: "Москва",
+    position: new Cesium.Cartesian3.fromDegrees(
+      37.6121031092666,
+      55.76446880703143
+    ),
+  },
+  {
+    name: "Краснодар",
+    position: new Cesium.Cartesian3.fromDegrees(
+      38.97018236824758,
+      45.04577676364702, 
+    ),
+  },
+  {
+    name: "Санкт-Петербург",
+    position: new Cesium.Cartesian3.fromDegrees(
+      30.36910073323104,
+      59.932908977241084,
+    ),
+  },
+  {
+    name: "Екатеринбург",
+    position: new Cesium.Cartesian3.fromDegrees(
+      60.609265657659215,
+      56.84246862919475,
+    ),
+  },
+];
 
 function getMapboxTilesUrl(mapboxCredentials) {
   const { username, token, style } = mapboxCredentials;
   return `https://api.mapbox.com/styles/v1/${username}/${style}/tiles/256/{z}/{x}/{y}?access_token=${token}`;
 }
 
-export { config, getMapboxTilesUrl };
+export { config, cities, getMapboxTilesUrl };
