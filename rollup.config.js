@@ -11,6 +11,7 @@ import copy from "rollup-plugin-copy";
 import del from "rollup-plugin-delete";
 import browsersync from "rollup-plugin-browsersync";
 import html from "@rollup/plugin-html";
+import { optimizeLodashImports } from "@optimize-lodash/rollup-plugin";
 import pkg from "./package.json";
 
 const template = ({
@@ -47,9 +48,11 @@ const options = {
   },
   preserveEntrySignatures: "strict",
   plugins: [
+    optimizeLodashImports(),
     del({ targets: ["./dist/**/*", "!./dist/public/Cesium"] }),
     resolve({
       mainFields: ["jsnext:main"],
+      extensions: [".ts", ".js"],
     }),
     typescript(),
     json(),

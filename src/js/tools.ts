@@ -8,7 +8,7 @@ function flyToRussia(scene: Cesium.Scene): void {
   scene.camera.flyTo({
     destination,
     orientation: {
-      pitch: Cesium.Math.toRadians(-59), // default value (looking down)
+      pitch: Cesium.Math.toRadians(-68), // default value (looking down)
       roll: 0.0,
     },
   });
@@ -38,9 +38,9 @@ type Marker = {
 function addMarker(viewer: Cesium.Viewer, {
   name,
   position,
-  pixelSize = 18,
+  pixelSize = 16,
   billboard,
-  font = '1.7em Helvetica, Arial, sans-serif',
+  font = '1.2em Helvetica, Arial, sans-serif',
   color = Cesium.Color.BLACK,
   labelStyle = Cesium.LabelStyle.FILL,
   labelOutlineColor = Cesium.Color.BLACK,
@@ -48,7 +48,7 @@ function addMarker(viewer: Cesium.Viewer, {
   labelOutlineWidth = 1,
   outlineColor = Cesium.Color.WHITE,
   labelVerticalOrigin = Cesium.VerticalOrigin.TOP,
-  labelPixelOffset = new Cesium.Cartesian2(10, -40),
+  labelPixelOffset = new Cesium.Cartesian2(10, -30),
   labelScale = 1.0,
   labelHorizontalOrigin = Cesium.HorizontalOrigin.LEFT,
   translucencyByDistance = new Cesium.NearFarScalar(5.0e6, 1.0, 20.0e6, 0.0),
@@ -85,22 +85,29 @@ type City = {
   position: Cesium.Cartesian3,
   billboard?: Cesium.Billboard,
 }
-function addCity(viewer: Cesium.Viewer, { name, position, billboard }: City) {
+function addCity(
+  viewer: Cesium.Viewer, 
+  { name, position, billboard }: City
+) {
   return addMarker(viewer, {
     name,
     position,
-    pixelSize: 18,
+    // pixelSize: 18,
     billboard,
-    font: '1.7em Helvetica, Arial, sans-serif',
+    // font: '1.2em Helvetica, Arial, sans-serif',
     outlineWidth: 4,
     labelOutlineWidth: 2,
     // labelOutlineColor: Cesium.Color.BLUE,
     labelStyle: Cesium.LabelStyle.FILL_AND_OUTLINE,
-    labelPixelOffset: new Cesium.Cartesian2(10, -40),
+    // labelPixelOffset: new Cesium.Cartesian2(10, -40),
   })
 }
 
-function addMarkersCollection (viewer: Cesium.Viewer, markers: Marker[], isCity = false) {
+function addMarkersCollection (
+  viewer: Cesium.Viewer,
+  markers: Marker[],
+  isCity = false
+) {
   markers.forEach(marker => {
     if (isCity) {
       addCity(viewer, marker)
@@ -115,9 +122,12 @@ function getMapboxTilesUrl(mapboxCredentials: MapboxCredentials) {
   return `https://api.mapbox.com/styles/v1/${username}/${style}/tiles/256/{z}/{x}/{y}?access_token=${token}`;
 }
 
-type ImageryLayerSetup = Pick<Cesium.ImageryLayer, "alpha"| "hue"| "saturation"| "brightness">;
+type ImageryLayerSetup = Partial<Pick<Cesium.ImageryLayer, "alpha"| "hue"| "saturation"| "brightness">>;
 
-function addImageryLayer(layers: Cesium.ImageryLayerCollection, provider: Cesium.ImageryProvider, options: ImageryLayerSetup) {
+function addImageryLayer(layers: Cesium.ImageryLayerCollection,
+  provider: Cesium.ImageryProvider, 
+  options: ImageryLayerSetup
+) {
   const layer: Cesium.ImageryLayer = layers.addImageryProvider(provider);
   Object.keys(options).forEach((option: keyof ImageryLayerSetup) => {
     if (layer[option] !== undefined) {
@@ -126,4 +136,52 @@ function addImageryLayer(layers: Cesium.ImageryLayerCollection, provider: Cesium
   })
 }
 
-export { flyToRussia, addMarker, addMarkersCollection, getMapboxTilesUrl, addImageryLayer, City };
+type CustomImageryLayer = {
+  provider: Cesium.ImageryProvider,
+  renderOptions: ImageryLayerSetup, 
+}
+
+function addImageryLayersCollection(
+  layers: Cesium.ImageryLayerCollection,
+  imageryLayers: CustomImageryLayer[] 
+) {
+  imageryLayers.forEach((layer) => {
+    const { provider, renderOptions } = layer;
+    addImageryLayer(
+      layers,
+      provider,
+      renderOptions,
+    );
+  })
+}
+
+function addOnWheel(elem: HTMLElement, handler: (event: MouseEvent) => any | void) {
+  if (elem.addEventListener) {
+    if ('onwheel' in document) {
+      // IE9+, FF17+
+      elem.addEventListener("wheel", handler);
+    } else if ('onmousewheel' in document) {
+      // устаревший вариант события
+      elem.addEventListener("mousewheel", handler);
+    } else {
+      // 3.5 <= Firefox < 17, более старое событие DOMMouseScroll пропустим
+      elem.addEventListener("MozMousePixelScroll", handler);
+    }
+  } 
+  // else { // IE8-
+    // elem.attachEvent("onmousewheel", handler);
+  // }
+}
+
+export { 
+  flyToRussia,
+  addMarker, 
+  addMarkersCollection, 
+  getMapboxTilesUrl, 
+  addImageryLayer, 
+  addImageryLayersCollection, 
+  addOnWheel,
+  City, 
+  ImageryLayerSetup, 
+  CustomImageryLayer 
+};

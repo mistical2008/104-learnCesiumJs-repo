@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@optimize-lodash/rollup-plugin": "^1.0.0",
     "@rollup/plugin-alias": "^3.1.2",
     "@rollup/plugin-html": "^0.2.3",
     "@rollup/plugin-json": "^4.1.0",
@@ -24,6 +25,7 @@
     "rollup-plugin-typescript": "^1.0.1"
   },
   "dependencies": {
-    "cesium": "^1.83.0"
+    "cesium": "^1.83.0",
+    "lodash-es": "^4.17.21"
   }
 }

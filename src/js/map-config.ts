@@ -5,16 +5,23 @@ const Cesium: any = cesium;
 const config = {
   renderRoot: "cesiumContainer",
   credentials: {
+    // mapbox: {
+      // username: "andrew2141441",
+      // token:
+        // "pk.eyJ1IjoiYW5kcmV3MjE0MTQ0MSIsImEiOiJja2x0Y2h5b2cyNWVhMm9uMTY4d2dranoxIn0.J61t4-R9Qp2YkeR566otDw",
+      // style: "cknejxpqx35ma17peq9w7d5y8",
+    // },
+    // mapbox://styles/mistical2008/ckqw40wpo9ott18o91sz74ac7
     mapbox: {
-      username: "andrew2141441",
+      username: "mistical2008",
       token:
-        "pk.eyJ1IjoiYW5kcmV3MjE0MTQ0MSIsImEiOiJja2x0Y2h5b2cyNWVhMm9uMTY4d2dranoxIn0.J61t4-R9Qp2YkeR566otDw",
-      style: "cknejxpqx35ma17peq9w7d5y8",
+        "pk.eyJ1IjoibWlzdGljYWwyMDA4IiwiYSI6ImNrcXc0MDhuczBrdnIycG82ZGRkYjh1b2gifQ.YsJwLsmLUx-Rv6tkXuK3Fg",
+      style: "ckqw40wpo9ott18o91sz74ac7",
     },
     cesium: {
       // Your access token can be found at: https://cesium.com/ion/tokens.
       ionToken:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxMmFhOTk3YS00ZWM2LTRkM2UtOWYzMS1mZWM3ZDRlZDcxZDciLCJpZCI6NjExNzUsImlhdCI6MTYyNTc0NjU2MH0.YDBEGFB3mSyXfMQRK0gLTrkVr08NGgxdKtXvz2Zg4JU",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlYzYzYTE5ZC0xMWJjLTQ1NTEtOTM4My02YzIxYzUxMzQxYzQiLCJpZCI6NjExNzUsImlhdCI6MTYyNjI2MTI3MX0.XA3SGCbXAlKjx1HGWz4OF8V1qcqbiqMPOiLZHyW6u_8",
     },
   },
   toolbarControls: {
@@ -41,7 +48,7 @@ const config = {
   camera: {
     // flyToPosition: [97.563399982653785, 43.6738737958489, 1900000.0],
     // flyToPosition: [63.41411432563399, 31.50983281565378, 2900000.0],
-    flyToPosition: [65.98071597333362, 38.187637503602346, 3300000.0],
+    flyToPosition: [76.98071597333362, 41.187637503602346, 4400000.0],
   },
 };
 
