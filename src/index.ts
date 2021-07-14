@@ -65,7 +65,7 @@ canvas.onclick = function () {
 scene.screenSpaceCameraController.enableRotate = true;
 scene.screenSpaceCameraController.enableTranslate = false;
 scene.screenSpaceCameraController.enableLook = true;
-scene.screenSpaceCameraController.minimumZoomDistance = 2000000;
+scene.screenSpaceCameraController.minimumZoomDistance = 1800000;
 scene.screenSpaceCameraController.maximumZoomDistance = 65000000;
 scene.screenSpaceCameraController.enableCollisionDetection = true;
 
