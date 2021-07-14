@@ -10,32 +10,9 @@ import { RollupOptions } from "rollup";
 import copy from "rollup-plugin-copy";
 import del from "rollup-plugin-delete";
 import browsersync from "rollup-plugin-browsersync";
-import html from "@rollup/plugin-html";
+// import html from "@rollup/plugin-html";
 import { optimizeLodashImports } from "@optimize-lodash/rollup-plugin";
 import pkg from "./package.json";
-
-const template = ({
-  links,
-  attributes,
-  bundle,
-  scripts,
-  files,
-  publicPath,
-  title,
-}) => {
-  return `
-    <!DOCTYPE html>
-      <html ${attributes}>
-        <head>
-          <title>${title}</title>
-        </head>
-        <body>
-          <div id="cesiumContainer">
-          ${scripts}
-        </body>
-      </html>
-  `;
-};
 
 /** @type {RollupOptions} */
 const options = {
