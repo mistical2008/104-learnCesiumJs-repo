@@ -10,7 +10,8 @@
       "noImplicitAny": true,
       "preserveConstEnums": true,
       "target": "es5",
-      "importHelpers": true
+      "importHelpers": true,
+      "esModuleInterop": true
     },
     "exclude": [
       "node_modules"

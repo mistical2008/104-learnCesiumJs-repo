@@ -1,5 +1,5 @@
 import * as Cesium from "cesium";
-import { config } from "./map-config";
+import { config, MapboxCredentials } from "./map-config";
 
 function flyToRussia(scene: Cesium.Scene): void {
     const destination: Cesium.Cartesian3 = new Cesium.Cartesian3.fromDegrees(
@@ -20,8 +20,8 @@ type Marker = {
   pixelSize?: number,
   billboard?: Cesium.Billboard,
   font?: string,
-  // color?: Cesium.Color | undefined | Cesium.Property,
-  color?: string | "",
+  color?: Cesium.Color | undefined,
+  // color?: string | "",
   labelStyle?: Cesium.LabelStyle,
   outlineWidth?: number,
   labelOutlineWidth?: number,
@@ -41,7 +41,7 @@ function addMarker(viewer: Cesium.Viewer, {
   pixelSize = 18,
   billboard,
   font = '1.7em Helvetica, Arial, sans-serif',
-  color = "",
+  color = Cesium.Color.BLACK,
   labelStyle = Cesium.LabelStyle.FILL,
   labelOutlineColor = Cesium.Color.BLACK,
   outlineWidth = 2,
@@ -60,7 +60,7 @@ function addMarker(viewer: Cesium.Viewer, {
     billboard,
     point: {
       pixelSize,
-      color: Cesium.Color.BLACK,
+      color,
       outlineColor: outlineColor,
       outlineWidth,
       translucencyByDistance,
@@ -110,4 +110,20 @@ function addMarkersCollection (viewer: Cesium.Viewer, markers: Marker[], isCity 
   })
 }
 
-export { flyToRussia, addMarker, addMarkersCollection, City };
+function getMapboxTilesUrl(mapboxCredentials: MapboxCredentials) {
+  const { username, token, style } = mapboxCredentials;
+  return `https://api.mapbox.com/styles/v1/${username}/${style}/tiles/256/{z}/{x}/{y}?access_token=${token}`;
+}
+
+type ImageryLayerSetup = Pick<Cesium.ImageryLayer, "alpha"| "hue"| "saturation"| "brightness">;
+
+function addImageryLayer(layers: Cesium.ImageryLayerCollection, provider: Cesium.ImageryProvider, options: ImageryLayerSetup) {
+  const layer: Cesium.ImageryLayer = layers.addImageryProvider(provider);
+  Object.keys(options).forEach((option: keyof ImageryLayerSetup) => {
+    if (layer[option] !== undefined) {
+      layer[option] = options[option]
+    }
+  })
+}
+
+export { flyToRussia, addMarker, addMarkersCollection, getMapboxTilesUrl, addImageryLayer, City };
