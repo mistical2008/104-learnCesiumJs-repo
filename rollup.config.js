@@ -25,13 +25,13 @@ const options = {
   },
   preserveEntrySignatures: "strict",
   plugins: [
-    optimizeLodashImports(),
-    del({ targets: ["./dist/**/*", "!./dist/public/Cesium"] }),
+    typescript(),
     resolve({
       mainFields: ["jsnext:main"],
       extensions: [".ts", ".js"],
     }),
-    typescript(),
+    optimizeLodashImports(),
+    del({ targets: ["./dist/**/*", "!./dist/public/Cesium"] }),
     json(),
     postcss({
       // extract: "app.min.css",
