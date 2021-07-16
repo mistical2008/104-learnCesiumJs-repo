@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const toolbarTop = document.querySelector(".cesium-viewer-toolbar");
   const toolbarBottom = document.querySelector(".cesium-viewer-bottom");
   // Hide toolbars
-  // toolbarTop.style.display = "none";
-  // toolbarBottom.style.display = "none";
+  toolbarTop.style.opacity = 0.3;
+  toolbarBottom.style.opacity = 0.3;
 });
 
 // Your access token can be found at: https://cesium.com/ion/tokens.
