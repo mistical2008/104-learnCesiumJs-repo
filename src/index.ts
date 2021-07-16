@@ -14,11 +14,11 @@ import {
 } from "./js/tools";
 
 document.addEventListener("DOMContentLoaded", (event) => {
-  const toolbarTop = document.querySelector(".cesium-viewer-toolbar");
-  const toolbarBottom = document.querySelector(".cesium-viewer-bottom");
+  const toolbarTop: HTMLElement = document.querySelector(".cesium-viewer-toolbar");
+  const toolbarBottom: HTMLElement = document.querySelector(".cesium-viewer-bottom");
   // Hide toolbars
-  toolbarTop.style.opacity = 0.3;
-  toolbarBottom.style.opacity = 0.3;
+  toolbarTop.style.opacity = '0.3';
+  toolbarBottom.style.opacity = '0.3';
 });
 
 // Your access token can be found at: https://cesium.com/ion/tokens.
