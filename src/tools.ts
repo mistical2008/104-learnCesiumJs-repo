@@ -8,7 +8,7 @@ function flyToRussia(scene: Cesium.Scene): void {
   scene.camera.flyTo({
     destination,
     orientation: {
-      pitch: Cesium.Math.toRadians(-68), // default value (looking down)
+      pitch: Cesium.Math.toRadians(config.camera.closeViewAngle), // default value (looking down)
       roll: 0.0,
     },
   });
@@ -173,6 +173,27 @@ function addOnWheel(elem: HTMLElement, handler: (event: MouseEvent) => any | voi
   // }
 }
 
+/**
+ * returns angle value based on current distance from close view height and close view angle
+ */
+function changeAngleByMove(
+  currentDistance: number,
+  minDistance: number,
+  distanceDiff: number, 
+  closeViewAngle: number,
+  angleDiff: number
+) {
+  return closeViewAngle - ( angleDiff * ((currentDistance - minDistance) / distanceDiff) );
+}
+
+function getAngleDiff(closeViewAngle: number, farViewAngle: number, ) {
+  return  Math.abs(Math.abs(closeViewAngle) - Math.abs(farViewAngle));
+}
+
+function getDistanceDiff(minDistance: number, maxDistance: number) {
+  return Math.abs(maxDistance - minDistance);
+}
+
 export { 
   flyToRussia,
   addMarker, 
@@ -181,7 +202,10 @@ export {
   addImageryLayer, 
   addImageryLayersCollection, 
   addOnWheel,
+  changeAngleByMove,
+  getDistanceDiff,
+  getAngleDiff,
   City, 
   ImageryLayerSetup, 
-  CustomImageryLayer 
+  CustomImageryLayer,
 };

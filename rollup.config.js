@@ -71,9 +71,10 @@ const options = {
           dest: "./dist/",
         },
       ],
+      // copyOnce: true,
     }),
     // html({ template }),
-    browsersync({ server: "dist" }),
+    browsersync({ server: "dist", open: false }),
   ],
 };
 export default options;

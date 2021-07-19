@@ -41,7 +41,7 @@ const config = {
     enableRotate: true,
     enableTranslate: false,
     enableLook: true,
-    minimumZoomDistance: 2000000,
+    // minimumZoomDistance: 2000000,
     maximumZoomDistance: 65000000,
     enableCollisionDetection: true,
   },
@@ -49,6 +49,10 @@ const config = {
     // flyToPosition: [97.563399982653785, 43.6738737958489, 1900000.0],
     // flyToPosition: [63.41411432563399, 31.50983281565378, 2900000.0],
     flyToPosition: [76.98071597333362, 41.187637503602346, 4400000.0],
+    closeViewAngle: -68, // in radians
+    farViewAngle: -90, // in radians
+    closeViewMinHeight: 1800000,
+    closeViewMaxHeight: 8174023.810810671 // in meters
   },
 };
 
